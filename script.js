@@ -1,3 +1,7 @@
+const rock = document.querySelector('#rock')
+const paper = document.querySelector('#paper');
+const scissor = document.querySelector('#scissor');
+
 let playerScore = 0;
 let cpuScore = 0;
 let draw = 0;
@@ -31,6 +35,8 @@ let playRound = (playerSelection, computerSelection) => {
   playerSelection = playerSelection.toLowerCase();
   computerSelection = computerSelection.toLowerCase();
 
+  let commentator ="";
+
   if (playerSelection === computerSelection) {
     commentator = "Tie";
     draw++;
@@ -55,36 +61,75 @@ let playRound = (playerSelection, computerSelection) => {
   } else {
     commentator = "Please Type Rock, Paper, or Scissor";
   }
-  console.log(
-    "Score: " +
+  let score =    "Score: " +
       "You " +
       playerScore +
       " Computer " +
       cpuScore +
       " Draws " +
       draw
-  );
+  ;
+
+  displayResults(commentator, score);
+
 };
+
+const displayResults = (commentator, score) => {
+  const resultsDiv = document.querySelector('.results');
+  const h2 = document.querySelector('.results h2');
+  const h4 = document.querySelector('.results h4');
+
+  h2.textContent = commentator;
+  h4.textContent = score;
+
+if(playerScore === 5 ) {
+  h2.textContent ='Good Job You Won!!';
+  rock.remove();
+  paper.remove();
+  scissor.remove();
+
+} else if(cpuScore === 5) {
+  h2.textContent = 'Ehh better luck next time';
+  rock.remove();
+  paper.remove();
+  scissor.remove();
+}
+}
 
 // =============  This function allows the game to be played 5 times then reports the winner ==========================
 
-let game = () => {
-  for (let i = 0; i < 5; i++) {
-    let playerSelection = prompt("Rock, Paper or Scissor?");
-    let computerSelection = computerPlay();
+// let game = () => {
+//   for (let i = 0; i < 5; i++) {
+//     let playerSelection = prompt("Rock, Paper or Scissor?");
+//     let computerSelection = computerPlay();
 
-    playRound(playerSelection, computerSelection);
-  }
+//     playRound(playerSelection, computerSelection);
+//   }
 
-  if (playerScore > cpuScore) {
-    console.log("You Win!!");
-  } else if (playerScore < cpuScore) {
-    console.log("You Lose....");
-  } else {
-    console.log("Draw");
-  }
-};
+//   if (playerScore > cpuScore) {
+//     console.log("You Win!!");
+//   } else if (playerScore < cpuScore) {
+//     console.log("You Lose....");
+//   } else {
+//     console.log("Draw");
+//   }
+// };
 
 // =========================== Initiates the game  ================================
 
-game();
+// game();
+
+function alertFunction(e) {
+
+  let playersChoice = e.target.innerText.toLowerCase();
+  let computerSelection = computerPlay();
+
+  playRound(playersChoice,computerSelection)
+};
+
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button)=> {
+  button.addEventListener('click', alertFunction)
+})
