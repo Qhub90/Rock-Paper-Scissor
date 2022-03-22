@@ -29,7 +29,27 @@ let computerPlay = () => {
   }
 };
 
-// ==============        This function takes in CPU & Players input, determines who wins and keeps score     =================
+
+// ===============================    This section takes in the player input and starts a round        =========================================================
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button)=> {
+  button.addEventListener('click', userSelection)
+})
+
+function userSelection(e) {
+
+  let playersChoice = e.target.innerText.toLowerCase();
+  let computerSelection = computerPlay();
+
+  playRound(playersChoice,computerSelection)
+};
+
+
+
+
+// ==============        This function compares the CPU & Players input and determines who wins. Also keeps score     =================
 
 let playRound = (playerSelection, computerSelection) => {
   playerSelection = playerSelection.toLowerCase();
@@ -96,40 +116,7 @@ if(playerScore === 5 ) {
 }
 }
 
-// =============  This function allows the game to be played 5 times then reports the winner ==========================
-
-// let game = () => {
-//   for (let i = 0; i < 5; i++) {
-//     let playerSelection = prompt("Rock, Paper or Scissor?");
-//     let computerSelection = computerPlay();
-
-//     playRound(playerSelection, computerSelection);
-//   }
-
-//   if (playerScore > cpuScore) {
-//     console.log("You Win!!");
-//   } else if (playerScore < cpuScore) {
-//     console.log("You Lose....");
-//   } else {
-//     console.log("Draw");
-//   }
-// };
-
 // =========================== Initiates the game  ================================
 
-// game();
-
-function alertFunction(e) {
-
-  let playersChoice = e.target.innerText.toLowerCase();
-  let computerSelection = computerPlay();
-
-  playRound(playersChoice,computerSelection)
-};
 
 
-const buttons = document.querySelectorAll('button');
-
-buttons.forEach((button)=> {
-  button.addEventListener('click', alertFunction)
-})
